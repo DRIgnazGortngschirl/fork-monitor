@@ -217,10 +217,14 @@ def build_block_info(clientname):
     clientfork = clientname.split(',')[1]
     forkStyle = "text-muted"
     cleanname = clientname.split(',')[0]
+    if clientfork == 'Spiral ':
+       forkStyle = 'text-warning'
+    if clientfork == 'Mystique ':
+       forkStyle = 'text-warning'
     if clientfork == 'Phoenix':
-        forkStyle = 'text-success'
+        forkStyle = 'text-danger'
     elif clientfork == 'Aztlan':
-        forkStyle = 'text-warning'
+        forkStyle = 'text-danger'
     elif clientfork == 'Agharta':
         forkStyle = 'text-danger'
     elif clientfork == 'Atlantis':
