@@ -13,11 +13,15 @@ graph_length = 16
 block_interval_average_len = 500
 cache_duration = 3600
 cache_blocks = 1000
-fork_total_difficulty = 934691916802069961084.0
+
+fork_total_difficulty = 6667680772324322000000.0
+# TEST NUMBER !
 max_hash_rate = 1
 max_difficulty = 1
 max_total_difficulty = 1
-fork_hash_rate = 9046117559975.0
+
+fork_hash_rate = 90046117559975.0
+# TEST NUMBER !
 app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
@@ -218,7 +222,7 @@ def build_block_info(clientname):
     forkStyle = "text-muted"
     cleanname = clientname.split(',')[0]
     if clientfork == 'Spiral ':
-       forkStyle = 'text-warning'
+       forkStyle = 'text-success'
     if clientfork == 'Mystique ':
        forkStyle = 'text-warning'
     if clientfork == 'Phoenix':
