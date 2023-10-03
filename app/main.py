@@ -245,7 +245,7 @@ def build_block_info(clientname):
         'difficulty': difficulty,
         'totalDifficulty': totalDiff,
         'blockInterval': "%.1f" % (blockInterval,),
-        'hashRate': "%.1f" % (hashRate / 1000000000),
+        'hashRate': "%.1f" % (hashRate / 1000000000000),
         'name': clientname,
         'clean': cleanname,
         'fork': clientfork,

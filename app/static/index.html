@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js" crossorigin="anonymous"></script>
-    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+        integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"
+        integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
     <title>Ethereum Classic Spiral Upgrade Monitor</title>
 </head>
+
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h1>Ethereum Classic Spiral Upgrade Monitor</h1>
-                <p><em>Make sure to upgrade your node before the Spiral hardfork <!--, scheduled for around June 04, 2020, at block 10500839.--></em>
-                   <!-- <ul>
+                <p><em>Make sure to upgrade your node before the Spiral hardfork!
+                        <!--, scheduled for around June 04, 2020, at block 10500839.--></em>
+                    <!-- <ul>
                         <li class="text-success"><a target="_blank" href="https://github.com/etclabscore/core-geth/releases">Core-Geth 1.11.0</a> or later supports Spiral.</li>
                         <li class="text-success"><a target="_blank" href="https://github.com/hyperledger/besu/releases">Hyperledger Besu 1.4.1</a> or later supports Spiral.</li>
                         <li class="text-warning"><del><a target="_blank" href="https://github.com/openethereum/openethereum/releases">Open Ethereum 2.7.2</a></del> does not have a release with Spiral, yet.
@@ -25,8 +32,10 @@
                         <li class="text-danger"><del><a target="_blank" href="https://github.com/input-output-hk/mantis/releases">IOHK Mantis 1.1-rc4</a></del> is no longer maintained, please use <a target="_blank" href="https://github.com/hyperledger/besu/releases">Hyperledger Besu</a>.</li>
                     </ul>
                     -->
-                    Check also the Spiral dashboard on <a target="_blank" href="https://nodes.etc-network.info/">nodes.etc-network.info</a>.
-                    Read the Spiral <a target="_blank" href="https://ecips.ethereumclassic.org/ECIPs/ecip-1109">ECIP-1109</a>.
+                    Check also the nodes dashboard on <a target="_blank"
+                        href="https://nodes.etc-network.info/">nodes.etc-network.info</a>.
+                    Read the Spiral <a target="_blank"
+                        href="https://ecips.ethereumclassic.org/ECIPs/ecip-1109">ECIP-1109</a>.
                 </p>
                 <table class="table" id="blockinfos">
                 </table>
@@ -35,51 +44,49 @@
         <div class="row">
             <div class="col-md-12">
                 <style>
-                .node text {
-                  text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
-                }
+                    .node text {
+                        text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+                    }
 
-                .canonical-node circle {
-                  fill: #007831;
-                }
+                    .canonical-node circle {
+                        fill: #007831;
+                    }
 
-                .canonical-node text {
-                    fill: #007831;
-                }
+                    .canonical-node text {
+                        fill: #007831;
+                    }
 
-                .uncle-node circle {
-                    fill: #01C853;
-                }
+                    .uncle-node circle {
+                        fill: #01C853;
+                    }
 
-                .uncle-node text {
-                    fill: #01C853;
-                }
+                    .uncle-node text {
+                        fill: #01C853;
+                    }
 
-                .link {
-                  fill: none;
-                  stroke-opacity: 0.4;
-                  stroke-width: 1.5px;
-                }
+                    .link {
+                        fill: none;
+                        stroke-opacity: 0.4;
+                        stroke-width: 1.5px;
+                    }
 
-                .canonical-link {
-                    stroke: #555;
-                }
+                    .canonical-link {
+                        stroke: #555;
+                    }
 
-                .uncle-link {
-                    stroke: #999;
-                }
+                    .uncle-link {
+                        stroke: #999;
+                    }
 
-                .nodehash {
-                    font-size: 10px;
-                }
+                    .nodehash {
+                        font-size: 10px;
+                    }
 
-                .nodenum {
-                }
+                    .nodenum {}
 
-                #axis text {
-                    font-size: 12px;
-                }
-
+                    #axis text {
+                        font-size: 12px;
+                    }
                 </style>
                 <svg width="600" height="1650">
                     <g transform="translate(80, 40)" id="root"></g>
@@ -90,7 +97,8 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <p class="text-muted">Fork me on <a target="_blank" href="https://github.com/DRIgnazGortngschirl/fork-monitor">github.com/byz-f/Spiral-monitor</a>.
+                <p class="text-muted">Fork me on <a target="_blank"
+                        href="https://github.com/DRIgnazGortngschirl/fork-monitor">github.com/DRIgnazGortngschirl/fork-monitor</a>.
             </div>
         </div>
     </div>
@@ -149,7 +157,7 @@
         <tr>
             <th>Hash rate <span title="Approximate number of hashes/sec computed by miners, derived from difficulty and block interval." style="color: #555" class="glyphicon glyphicon-question-sign"></span></th>
             {{#latest}}
-                <td><span class="{{hashRateStyle}}">{{hashRate}} GH/s</span></td>
+                <td><span class="{{hashRateStyle}}">{{hashRate}} TH/s</span></td>
             {{/latest}}
         </tr>
     </script>
@@ -170,43 +178,43 @@
             var totalNodes = 0;
             var nextSubgraph = 0;
 
-            for(var i = 0; i < nodes.length; i++) {
-                if(subgraphMap[nodes[i].block.hash] == undefined) {
+            for (var i = 0; i < nodes.length; i++) {
+                if (subgraphMap[nodes[i].block.hash] == undefined) {
                     var frontier = [nodes[i]];
                     var subgraph = [];
                     subgraphs[nextSubgraph++] = subgraph;
 
-                    while(frontier.length != 0) {
+                    while (frontier.length != 0) {
                         var node = frontier.pop();
-                        if(subgraphMap[node.block.hash] != undefined)
+                        if (subgraphMap[node.block.hash] != undefined)
                             continue;
                         subgraphMap[node.block.hash] = node;
                         subgraph.push(node);
-                        for(var j = 0; j < node.parents.length; j++)
+                        for (var j = 0; j < node.parents.length; j++)
                             frontier.push(node.parents[j]);
-                        for(var j = 0; j < node.children.length; j++)
+                        for (var j = 0; j < node.children.length; j++)
                             frontier.push(node.children[j]);
                     }
                 }
             }
 
-            for(var i = 0; i < subgraphs.length; i++)
-                subgraphs[i].sort(function(a, b) { return a.block.timestamp - b.block.timestamp; });
+            for (var i = 0; i < subgraphs.length; i++)
+                subgraphs[i].sort(function (a, b) { return a.block.timestamp - b.block.timestamp; });
             return subgraphs;
         }
 
         function layoutNodes(nodes, mincol, latest) {
             var columns = [];
 
-            for(var i = 0; i < nodes.length; i++) {
+            for (var i = 0; i < nodes.length; i++) {
                 var node = nodes[i];
                 node.y = (latest - node.block.timestamp) * pixelsPerSecond;
-                for(var j = 0; j < columns.length; j++) {
-                    if(j == 0 && !node.canonical)
+                for (var j = 0; j < columns.length; j++) {
+                    if (j == 0 && !node.canonical)
                         continue;
-                    if(columns[j] < node.y)
+                    if (columns[j] < node.y)
                         continue;
-                    if(node.siblings.map(function(n) { return n.x == j * nodeWidth; }).reduce(function(a, b) { return a | b; }, false))
+                    if (node.siblings.map(function (n) { return n.x == j * nodeWidth; }).reduce(function (a, b) { return a | b; }, false))
                         continue;
                     node.x = (j + mincol) * nodeWidth;
                     columns[j] = node.y - nodeHeight;
@@ -223,25 +231,25 @@
         function layoutSubgraph(nodes, mincol, latest) {
             // Populate siblings and find roots
             var canonical = {}; // Traces the canonical chain
-            for(var i = nodes.length - 1; i >= 0; i--) {
+            for (var i = nodes.length - 1; i >= 0; i--) {
                 var node = nodes[i];
 
-                if(node.children.length == 0 || canonical[node.block.hash] != undefined) {
+                if (node.children.length == 0 || canonical[node.block.hash] != undefined) {
                     node.canonical = true;
-                    if(node.parents.length > 0)
+                    if (node.parents.length > 0)
                         canonical[node.parents[0].block.hash] = true;
                 }
 
-                for(var j = 0; j < node.parents.length; j++) {
-                    for(var k = 0; k < node.parents[j].children.length; k++) {
-                        if(node.parents[j].children[k] != node)
+                for (var j = 0; j < node.parents.length; j++) {
+                    for (var k = 0; k < node.parents[j].children.length; k++) {
+                        if (node.parents[j].children[k] != node)
                             node.siblings.push(node.parents[j].children[k]);
                     }
                 }
 
-                for(var j = 0; j < node.children.length; j++) {
-                    for(var k = 0; k < node.children[j].parents.length; k++) {
-                        if(node.children[j].parents[k] != node)
+                for (var j = 0; j < node.children.length; j++) {
+                    for (var k = 0; k < node.children[j].parents.length; k++) {
+                        if (node.children[j].parents[k] != node)
                             node.siblings.push(node.children[j].parents[k]);
                     }
                 }
@@ -256,7 +264,7 @@
 
             // Build a map of new node objects
             var nodeMap = {}
-            for(var hash in blocks) {
+            for (var hash in blocks) {
                 var block = blocks[hash];
                 var node = {
                     block: block,
@@ -271,12 +279,12 @@
             // Generate node and edge lists, and populate parents and children
             var nodes = [];
             var edges = [];
-            for(var hash in nodeMap) {
+            for (var hash in nodeMap) {
                 var node = nodeMap[hash];
 
-                for(var i = 0; i < node.block.parents.length; i++) {
+                for (var i = 0; i < node.block.parents.length; i++) {
                     var parentNode = nodeMap[node.block.parents[i]];
-                    if(parentNode != undefined) {
+                    if (parentNode != undefined) {
                         node.parents.push(parentNode);
                         edges.push([parentNode, node]);
                         parentNode.children.push(node);
@@ -286,18 +294,18 @@
                 nodes.push(node);
             }
 
-            var latest = nodes.map(function(n) { return n.block.timestamp; }).reduce(function(a, b) { return Math.max(a, b); }, 0);
+            var latest = nodes.map(function (n) { return n.block.timestamp; }).reduce(function (a, b) { return Math.max(a, b); }, 0);
 
             var subgraphs = findSubgraphs(nodes);
-            subgraphs.sort(function(a, b) {
+            subgraphs.sort(function (a, b) {
                 function totalDifficulty(nodes) {
-                    return nodes.map(function(a) { return a.block.difficulty; }).reduce(function(a, b) { return a + b;}, 0);
+                    return nodes.map(function (a) { return a.block.difficulty; }).reduce(function (a, b) { return a + b; }, 0);
                 }
                 return totalDifficulty(b) - totalDifficulty(a);
             });
 
             var mincol = 0;
-            for(var i = 0; i < subgraphs.length; i++) {
+            for (var i = 0; i < subgraphs.length; i++) {
                 mincol = layoutSubgraph(subgraphs[i], mincol, latest);
             }
 
@@ -308,22 +316,22 @@
             var svg = d3.select("svg"),
                 g = svg.select("#root");
 
-            var xmax = Math.max.apply(null, nodes.map(function(d) { return d.x; }));
-            var ymax = Math.max.apply(null, nodes.map(function(d) { return d.y; }));
+            var xmax = Math.max.apply(null, nodes.map(function (d) { return d.x; }));
+            var ymax = Math.max.apply(null, nodes.map(function (d) { return d.y; }));
 
             svg.attr("height", ymax + nodeHeight * 2);
             svg.attr("width", xmax + nodeWidth + 60);
 
 
             var nodeset = g.selectAll(".node")
-                .data(nodes, function(d) { return d.block.hash; });
+                .data(nodes, function (d) { return d.block.hash; });
             var t = nodeset.transition()
-                .attr("class", function(d) { return "node" + (d.canonical?" canonical-node":" uncle-node"); })
-                .attr("transform", function(d) { return "translate(" + d.x + ", " + d.y + ")"; });
+                .attr("class", function (d) { return "node" + (d.canonical ? " canonical-node" : " uncle-node"); })
+                .attr("transform", function (d) { return "translate(" + d.x + ", " + d.y + ")"; });
 
             var node = nodeset.enter().append("g")
-                .attr("class", function(d) { return "node" + (d.canonical?" canonical-node":" uncle-node"); })
-                .attr("transform", function(d) { return "translate(" + d.x + ", " + d.y + ")"; });
+                .attr("class", function (d) { return "node" + (d.canonical ? " canonical-node" : " uncle-node"); })
+                .attr("transform", function (d) { return "translate(" + d.x + ", " + d.y + ")"; });
             node.append("circle")
                 .attr("r", 2.5)
             node.append("text")
@@ -331,47 +339,47 @@
                 .attr("dy", 13)
                 .attr("x", 8)
                 .style("text-anchor", "start")
-                .text(function(d) { return d.block.hash.substring(0, 10); });
+                .text(function (d) { return d.block.hash.substring(0, 10); });
             node.append("text")
                 .attr("class", "nodenum")
                 .attr("dy", -3)
                 .attr("x", 8)
                 .style("text-anchor", "start")
-                .text(function(d) { return d.block.number; });
+                .text(function (d) { return d.block.number; });
             nodeset.exit().remove();
 
             var link = g.selectAll(".link")
-                .data(edges, function(d) { return [d[0].block.hash, d[1].block.hash]; });
+                .data(edges, function (d) { return [d[0].block.hash, d[1].block.hash]; });
             link.transition(t)
-                .attr("class", function(d) {
-                    return "link" + ((d[0].canonical && d[1].canonical)?" canonical-link":" uncle-link");
+                .attr("class", function (d) {
+                    return "link" + ((d[0].canonical && d[1].canonical) ? " canonical-link" : " uncle-link");
                 })
-                .attr("d", function(d) {
+                .attr("d", function (d) {
                     var fromNode = d[0],
                         toNode = d[1];
 
                     return "M" + toNode.x + "," + toNode.y
-                        + "C" + toNode.x  + "," + (toNode.y + 15)
+                        + "C" + toNode.x + "," + (toNode.y + 15)
                         + " " + fromNode.x + "," + (fromNode.y - 15)
                         + " " + fromNode.x + "," + fromNode.y;
                 });
             link.enter().append("path")
-                .attr("class", function(d) {
-                    return "link" + ((d[0].canonical && d[1].canonical)?" canonical-link":" uncle-link");
+                .attr("class", function (d) {
+                    return "link" + ((d[0].canonical && d[1].canonical) ? " canonical-link" : " uncle-link");
                 })
-                .attr("d", function(d) {
+                .attr("d", function (d) {
                     var fromNode = d[0],
                         toNode = d[1];
 
                     return "M" + toNode.x + "," + toNode.y
-                        + "C" + toNode.x  + "," + (toNode.y + 15)
+                        + "C" + toNode.x + "," + (toNode.y + 15)
                         + " " + fromNode.x + "," + (fromNode.y - 15)
                         + " " + fromNode.x + "," + fromNode.y;
                 });
             link.exit().remove();
 
-            var earliest = Math.min.apply(null, nodes.map(function(n) { return n.block.timestamp; }));
-            var latest = Math.max.apply(null, nodes.map(function(n) { return n.block.timestamp; }));
+            var earliest = Math.min.apply(null, nodes.map(function (n) { return n.block.timestamp; }));
+            var latest = Math.max.apply(null, nodes.map(function (n) { return n.block.timestamp; }));
             var timeScale = d3.scaleTime()
                 .domain([new Date(latest * 1000), new Date(earliest * 1000)])
                 .range([0, ymax]);
@@ -391,7 +399,7 @@
             var template = Handlebars.compile($("#state-template").html());
             $("#blockinfos").html(template(response));
 
-            for(var i = 0; i < response.nodes.length; i++) {
+            for (var i = 0; i < response.nodes.length; i++) {
                 var node = response.nodes[i];
                 allBlocks[node.hash] = node;
                 lastTimestamp = Math.max(lastTimestamp, node.timestamp);
@@ -401,25 +409,25 @@
         }
 
         function loadData() {
-            if(lastTimestamp != 0) {
-                $.ajax({url: '/blocks', data: {'since': lastTimestamp - 30}, dataType: 'json'}).done(processData);
+            if (lastTimestamp != 0) {
+                $.ajax({ url: '/blocks', data: { 'since': lastTimestamp - 30 }, dataType: 'json' }).done(processData);
             } else {
-                $.ajax({url: '/blocks', dataType: 'json'}).done(processData);
+                $.ajax({ url: '/blocks', dataType: 'json' }).done(processData);
             }
         }
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             loadData();
 
             var intervalId = window.setInterval(loadData, 10000);
-            $(window).blur(function() {
-                if(intervalId != undefined) {
+            $(window).blur(function () {
+                if (intervalId != undefined) {
                     window.clearInterval(intervalId);
                     intervalId = undefined;
                 }
             });
-            $(window).focus(function() {
-                if(intervalId == undefined) {
+            $(window).focus(function () {
+                if (intervalId == undefined) {
                     loadData();
                     intervalId = window.setInterval(loadData, 10000);
                 }
@@ -427,4 +435,5 @@
         });
     </script>
 </body>
+
 </html>
