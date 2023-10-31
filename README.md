@@ -1,9 +1,8 @@
 # Fork Monitor
 Ethereum Classic Hard-Fork Monitor
 
-- Live: https://fork-monitor.etc-network.info
+- Mainnet: https://fork-monitor.etc-network.info
 - Testnet: https://fork-monitor-mordor.etc-network.info
-- Testnet: https://kotti.fork.fault.dev Will be decommisioned !
 
 ### Install
 
